@@ -1,8 +1,8 @@
 <template>
   <div>
     <label>Your location</label>
-		<input type="text" name="lat" v-model="mapCoordinates.lat" />
-		<input type="text" name="lng" v-model="mapCoordinates.lng" />
+		<input type="hidden" name="lat" v-model="mapCoordinates.lat" />
+		<input type="hidden" name="lng" v-model="mapCoordinates.lng" />
 
     <GmapMap
       :center="myCoordinates"
@@ -83,10 +83,6 @@ label {
 .map {
   position: relative;
   margin: 10px 0;
-}
-
-input {
-	display: none;
 }
 
 .vue-map-container,
