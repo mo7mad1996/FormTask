@@ -3,7 +3,6 @@
     <label>Your location</label>
     <input type="hidden" name="lat" v-model="mapCoordinates.lat" />
     <input type="hidden" name="lng" v-model="mapCoordinates.lng" />
-    {{ mapCoordinates.lat }}
     <GmapMap
       :center="myCoordinates"
       :zoom="zoom"
