@@ -1,14 +1,13 @@
 <template>
   <div>
     <label>Your location</label>
-		<input type="hidden" name="lat" v-model="mapCoordinates.lat" />
-		<input type="hidden" name="lng" v-model="mapCoordinates.lng" />
-
+    <input type="hidden" name="lat" v-model="mapCoordinates.lat" />
+    <input type="hidden" name="lng" v-model="mapCoordinates.lng" />
+    {{ mapCoordinates.lat }}
     <GmapMap
       :center="myCoordinates"
       :zoom="zoom"
       ref="mapRef"
-      @dragend="handleDrag"
     />
   </div>
 </template>
@@ -26,37 +25,16 @@ export default {
     };
   },
   created() {
-    // does the user have a saved center? use it instead of the default
-    if (localStorage.center) {
-      this.myCoordinates = JSON.parse(localStorage.center);
-    } else {
-      // get user's coordinates from browser request
-      this.$getLocation({})
-        .then((coordinates) => {
-          this.myCoordinates = coordinates;
-        })
-        .catch((error) => alert(error));
-    }
-    // does the user have a saved zoom? use it instead of the default
-    if (localStorage.zoom) {
-      this.zoom = parseInt(localStorage.zoom);
-    }
+    // get user's coordinates from browser request
+    this.$getLocation({})
+      .then((coordinates) => {
+        this.myCoordinates = coordinates;
+      })
+      .catch((error) => alert(error));
   },
   mounted() {
     // add the map to a data object
     this.$refs.mapRef.$mapPromise.then((map) => (this.map = map));
-  },
-  methods: {
-    handleDrag() {
-      // get center and zoom level, store in localstorage
-      let center = {
-        lat: this.map.getCenter().lat(),
-        lng: this.map.getCenter().lng(),
-      };
-      let zoom = this.map.getZoom();
-      localStorage.center = JSON.stringify(center);
-      localStorage.zoom = zoom;
-    },
   },
   computed: {
     mapCoordinates() {

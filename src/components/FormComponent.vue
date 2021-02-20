@@ -5,7 +5,7 @@
     
     <Inputs @upname="upname" @upemail="upemail" @uppass="uppass" />
     <Map />
-    <Images />
+    <Images @upimg="upimg" />
 
     <!-- submit btn -->
     <input
@@ -35,6 +35,7 @@ export default {
       nameOk: false,
       passwordOk: false,
       emailOk: false,
+      imgsOk: false
     };
   },
 
@@ -59,6 +60,9 @@ export default {
     uppass(val) {
       this.passwordOk = val;
     },
+    upimg(val) {
+      this.imgsOk = val
+    }
   },
   // methods End
 };

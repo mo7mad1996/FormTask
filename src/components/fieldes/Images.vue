@@ -5,7 +5,9 @@
       <ul>
         <li v-for="(img, ndx) in all" :key="ndx">
           <img v-if="img.url" :src="img.url" :alt="img.alt" />
-          <label v-else :for="'file' + img.id" ><i class="fas fa-plus"></i></label>
+          <label v-else :for="'file' + img.id"
+            ><i class="fas fa-plus"></i
+          ></label>
           <button v-if="img.url" @click="images.splice(ndx, 1)">
             <i class="far fa-times-circle"></i>
           </button>
@@ -13,12 +15,14 @@
             type="file"
             accept="image/*"
             :id="'file' + img.id"
-            :name="ndx < images.length ? 'img' + ndx: null"
+            :name="ndx < images.length ? 'img' + ndx : null"
             @change="upload"
           />
         </li>
       </ul>
     </div>
+
+    <div v-show="!imgsOk" class="err disapled">this field required</div>
   </div>
 </template>
 
@@ -40,6 +44,13 @@ export default {
         },
       ];
     },
+    imgsOk(){
+      if(this.images.length > 0){
+        return true
+      } else {
+        return false;
+      }
+    }
   },
   methods: {
     upload(e) {
@@ -61,12 +72,17 @@ export default {
       }
     },
   },
+  watch: {
+    imgsOk(){
+      this.$emit("upimg", this.imgsOk)
+    }
+  }
 };
 </script>
 
 <style scoped>
 .imgs {
-  border: 1px solid #333 ;
+  border: 1px solid #333;
 }
 
 ul {
@@ -120,8 +136,8 @@ label[for] {
   background: #27ae60;
   color: white;
 }
-label[for]:hover,  
-label[for]:focus  {
+label[for]:hover,
+label[for]:focus {
   filter: brightness(120%);
 }
 </style>
